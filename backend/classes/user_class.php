@@ -51,10 +51,59 @@ class User
 
     }
 
+    public function login(string $username, string $password): bool
+    {
+        global $pdo;
+
+        $username = trim($username);
+        $password = trim($password);
+
+        if (!$this->isUsernameValid($username))
+        {
+            return FALSE;
+        }
+
+        if (!$this->isPasswordValid($password))
+        {
+            return FALSE;
+        }
+
+        $query = 'SELECT * FROM ppe2_database.users WHERE (user_username = :username) AND (user_enabled = 1)';
+
+        $values = array(':username' => $username);
+
+        try
+        {
+            $res = $pdo->prepare($query);
+            $res->execute($values);
+        }
+        catch (PDOException $e)
+        {
+            throw new Exception('Database query error');
+        }
+
+        $row = $res->fetch(PDO::FETCH_ASSOC);
+
+        if (is_array($row))
+        {
+            if (password_verify($password, $row['user_password']))
+            {
+                $this->id = intval($row['user_id'], 10);
+                $this->username = $username;
+                $this->authenticated = TRUE;
+
+                return TRUE;
+            }
+        }
+
+        return FALSE;
+    }
+
     /* Fonction d'ajout d'un nouvel utilisateur */
     public function addUser(string $userUsername, string $userFirstName, string $userLastName, string $userEmail, string $userBirthdate, string $userPassword)
     {
         /* Objet PDO Global */ global $pdo;
+        $valide = true;
 
         /* Retire les espaces */
         $userUsername = trim($userUsername);
@@ -66,22 +115,32 @@ class User
 
         /* Check si le nom d'utilisateur est valide */
         if (!$this->isUsernameValid($userUsername)) {
-            throw new Exception('Invalid user name');
+            $valide = false;
+            return $error = 'Le nom d\'utilisateur est incorrecte';
         }
 
         /* Check si le mot de passe est valide */
         if (!$this->isPasswordValid($userPassword)) {
-            throw new Exception('Invalid password');
+            $valide = false;
+            throw new Exception('Le mot de passe doit être composé de 8 caractères, dont 1 majuscule, 1 minuscule et 1 caractère spéciale.');
+        }
+
+        /* Check si l'email' est valide */
+        if (!$this->isEmailValid($userEmail)) {
+            $valide = false;
+            throw new Exception('L\'email n\'est pas correcte.');
         }
 
         /* Check si le nom d'utilisateur est unique */
         if (!is_null($this->getIdFromUsername($userUsername))) {
-            throw new Exception('User name not available');
+            $valide = false;
+            throw new Exception('Le nom d\'utilisateur est déjà utilisé');
         }
 
         /* Check si l'email' est unique */
         if (!is_null($this->getIdFromEmail($userEmail))) {
-            throw new Exception('Email not available');
+            $valide = false;
+            throw new Exception('L\'adresse e-mail est déjà utilisée');
         }
 
         /* Requête d'insertion en base */
@@ -94,12 +153,9 @@ class User
         $values = array(':firstname' => $userFirstName, ':lastname' => $userLastName, ':username' => $userUsername, ':email' => $userEmail, ':userBirthdate' => $userBirthdate, ':password' => $hash);
 
         /* Execution de la requête */
-        try {
+        if($valide){
             $res = $pdo->prepare($query);
             $res->execute($values);
-        } catch (PDOException $e) {
-            /* Récupération des exceptions */
-            throw new Exception('Database query error');
         }
     }
 
@@ -194,9 +250,6 @@ class User
             throw new Exception('Database query error');
         }
 
-        /* Supression de la session liée à l'utilisateur supprimé ci-dessus */
-        $query = 'DELETE FROM ppe2_database.users_sessions WHERE (user_id = :id)';
-
         /* Requête préparée */
         $values = array(':id' => $userID);
 
@@ -222,7 +275,7 @@ class User
         /* Check si le nom d'utilisateur est compris entre 5 et 16 */
         $len = mb_strlen($userUsername);
 
-        if (($len < 5) || ($len > 16)) {
+        if (($len < 3) || ($len > 32)) {
             $valid = FALSE;
         }
 
@@ -235,12 +288,20 @@ class User
         /* Initialisation de la variable sur TRUE */
         $valid = TRUE;
 
-        /* Check si le mot de passe est compris entre 8 et 50 */
-        $len = mb_strlen($userPassword);
-
-        if (($len < 8) || ($len > 50)) {
+        if(!preg_match('/^(?=[^\d]*\d)(?=[A-Z\d ]*[^A-Z\d ]).{8,}$/i', $userPassword))
             $valid = FALSE;
-        }
+
+        return $valid;
+    }
+
+    /* Vérification du mot de passe */
+    public function isEmailValid(string $userEmail): bool
+    {
+        /* Initialisation de la variable sur TRUE */
+        $valid = TRUE;
+
+        if(!preg_match('/^[^\W][a-zA-Z0-9_]+(\.[a-zA-Z0-9_]+)*\@[a-zA-Z0-9_]+(\.[a-zA-Z0-9_]+)*\.[a-zA-Z]{2,4}$/', $userEmail))
+            $valid = FALSE;
 
         return $valid;
     }

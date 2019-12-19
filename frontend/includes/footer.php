@@ -25,14 +25,20 @@
             </div>
         </div>
     </div>
+    <div id="cookies">
+        Veuillez accepter nos cookies pour utilisez pleinement notre application 🍪 <a href="" class="btn color-bg flat-btn ml-3">Accepter</a>
+    </div>
 </footer>
 
-<?php require_once 'auth.php' ?>
 
 <a class="to-top"><i class="fa fa-angle-up"></i></a>
 </div>
+<script>window.onload = popupCookies()</script>
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/javascript" src="js/plugins.js"></script>
 <script type="text/javascript" src="js/scripts.js"></script>
+<script type="text/javascript" src="js/form-validation.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+
 </body>
 </html>

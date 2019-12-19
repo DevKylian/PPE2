@@ -335,3 +335,9 @@ $(function () {
     initPPE2();
     initparallax();
 });
+
+window.onload = function popupCookies() {
+    var x = document.getElementById("cookies");
+    x.className = "show";
+    setTimeout(function(){ x.className = x.className.replace("show", ""); }, 9999999999999);
+};

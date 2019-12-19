@@ -29,6 +29,10 @@
     background: -o-linear-gradient(top, #3EAAFD, #49CEFF);
 }
 
+.error-msg {
+    color: red;
+}
+
 /*-------------General Style---------------------------------------*/
 html {
     overflow-x: hidden !important;
@@ -103,7 +107,7 @@ p {
     width: 92%;
     margin: 0 auto;
     position: relative;
-    z-index: 5;
+    z-index: 1;
 }
 
 #wrapper {
@@ -717,12 +721,12 @@ section {
     position: relative;
 }
 
-.custom-form input[type="text"], .custom-form input[type=password] {
+.custom-form input[type="text"], .custom-form input[type=password], .custom-form input[type="date"] {
     float: left;
     border: 1px solid #e8e8e8;
     background: #fdfdfd;
     width: 100%;
-    padding: 15px 20px 15px 55px;
+    padding: 15px 20px 15px 15px;
     border-radius: 6px;
     color: #666;
     font-size: 13px;
@@ -1279,7 +1283,7 @@ footer.main-footer {
     float: left;
     width: 100%;
     position: relative;
-    padding: 90px 0 0 0;
+    padding: 50px 0 0 0;
     z-index: 50;
     overflow: hidden;
 }
@@ -1985,3 +1989,54 @@ footer.main-footer {
 
 
 
+#cookies {
+    font-family: 'Roboto', sans-serif;
+    visibility: hidden;
+    min-width: 250px;
+    background-color: #fff;
+    color: #000;
+    text-align: center;
+    padding: 18px;
+    position: fixed;
+    z-index: 1;
+    left: 2%;
+    right: 60%;
+    bottom: 50px;
+    font-size: 15px;
+    opacity: 1;
+    box-shadow: 2px 5px 9px rgba(132, 132, 132, 0.69);
+}
+
+#cookies.show {
+    visibility: visible;
+
+}
+
+@-webkit-keyframes fadein {
+    from {bottom: 0; opacity: 0;}
+    to {bottom: 30px; opacity: 1;}
+}
+
+@keyframes fadein {
+    from {bottom: 0; opacity: 0;}
+    to {bottom: 30px; opacity: 1;}
+}
+
+@-webkit-keyframes fadeout {
+    from {bottom: 30px; opacity: 1;}
+    to {bottom: 0; opacity: 0;}
+}
+
+@keyframes fadeout {
+    from {bottom: 30px; opacity: 1;}
+    to {bottom: 0; opacity: 0;}
+}
+
+.cookies-img {
+    width: 15%;
+    margin-right: 10px;
+}
+
+.ml-3{
+    margin-left: 6px;
+}

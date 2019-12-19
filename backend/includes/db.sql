@@ -8,19 +8,7 @@ CREATE DATABASE IF NOT EXISTS `ppe2_database` CHARACTER SET utf8 COLLATE utf8_ge
 -- Drop table if exists
 --
 
-DROP TABLE IF EXISTS `roles`, `users`, `users_sessions`;
-
---
--- Table structure for table `users_sessions`
---
-
-CREATE TABLE `users_sessions` (
-    `session_id` varchar(255) NOT NULL,
-    `user_id` int(10) UNSIGNED NOT NULL,
-    `login_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    PRIMARY KEY (`session_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
+DROP TABLE IF EXISTS `roles`, `users`;
 
 --
 -- Table structure for table `roles`

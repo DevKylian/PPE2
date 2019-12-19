@@ -12,7 +12,8 @@
 ![MAQUETTE](git/readme/responsive.png)
 
 ### 📌 Tâches Restantes
-- Intégration du Back-End sur le Front-End
+- Optimisation du Code (Classe Utilisateur)
+- Intégration du Back-end sur l'Accès Client (Dashboard.php)
 - Demande d'Autorisation de l'usage des Cookies au Client
 
 ### 📌 Contact

@@ -1,3 +1,4 @@
+<?php session_start() ?>
 <!DOCTYPE HTML>
 <html lang="en">
 <head>
@@ -19,22 +20,38 @@
     <header class="main-header dark-header fs-header sticky">
         <div class="header-inner">
             <div class="logo-holder main-logo">
-                <a href="#">
+                <a href="dashboard.php">
                     <h3><span>PPE<strong>2</strong></span></h3>
                 </a>
             </div>
             <div class="header-user-menu">
                 <div class="header-user-name">
-                    <span><img src="images/avatar/avatar.png" alt=""></span> Bonjour, Kylian
+                    <span><img src="images/avatar/avatar.png" alt=""></span> Bonjour, <?php if (isset($_SESSION['username'])) {
+                        echo $_SESSION['username'];
+                    } else {
+                        echo 'Invité';
+                    } ?>
                 </div>
+                <?php if (isset($_SESSION['username'])) {
+                    echo "
                 <ul>
-                    <li><a href="dashboard-myprofile.html"> Mon Profil</a></li>
-                    <li><a href="dashboard-add-listing.html"> Se Déconnecter</a></li>
-                </ul>
+                    <li><a href='../profil.php'> Mon Profil</a></li>
+                    <li><a href='/PPE2/frontend/logout.php'> Se Déconnecter</a></li>
+                </ul>";
+                }
+                ?>
             </div>
-            <div class="show-reg-form modal-open">
-            <a href="dashboard.php#" class="btn-auth color-bg flat-btn">Authentification
-                <i class="fa fa-sign-in"></i></a></div>
+            <?php if (!isset($_SESSION['username'])) {
+                echo "
+            <div class='show-reg-form'>            
+            <a href='login.php' class='btn-auth color-bg flat-btn'>Connexion
+                <i class='fa fa-sign-in'></i></a>
+                ou
+            <a href='register.php' class='btn-auth color-bg flat-btn'>Inscription
+                <i class='fa fa-sign-in'></i></a>
+            </div>";
+            }
+            ?>
             <div class="nav-button-wrap color-bg">
                 <div class="nav-button">
                     <span></span><span></span><span></span>
@@ -44,10 +61,10 @@
                 <nav>
                     <ul>
                         <li>
-                            <a href="dashboard.html">Accueil</a>
+                            <a href="dashboard.php">Accueil</a>
                         </li>
                         <li>
-                            <a href="dashboard.html">Liste des Membres <i class="fa fa-caret-down"></i></a>
+                            <a href="memberlist.php">Liste des Membres <i class="fa fa-caret-down"></i></a>
                             <ul>
                                 <li><a href="">Sous Menu</a></li>
                             </ul>
@@ -56,4 +73,5 @@
                 </nav>
             </div>
         </div>
+
     </header>
