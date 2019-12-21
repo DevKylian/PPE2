@@ -122,7 +122,7 @@ class User
         /* Check si le mot de passe est valide */
         if (!$this->isPasswordValid($userPassword)) {
             $valide = false;
-            throw new Exception('Le mot de passe doit être composé de 8 caractères, dont 1 majuscule, 1 minuscule et 1 caractère spéciale.');
+            throw new Exception('Le mot de passe doit être composé de 8 caractères, dont 1 majuscule, 1 minuscule et 1 caractère spécial.');
         }
 
         /* Check si l'email' est valide */
