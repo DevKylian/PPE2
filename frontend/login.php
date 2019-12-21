@@ -29,7 +29,7 @@ include'../backend/controllers/register.php';
                                                     <div class="row">
                                                         <div class="col-md-6">
                                                             <label>Nom d'utilisateur *<span id="error-username" class="error-msg"></span></label>
-                                                            <input type="text" id="username" name="username" placeholder="" onClick="this.select()" value="" autofocus/>
+                                                            <input type="text" id="username" name="username" placeholder="" onClick="this.select()" value="<?php if(isset($_POST['username'])) echo $_POST['username']; ?>" autofocus/>
                                                         </div>
                                                         <div class="col-md-6">
                                                             <label>Mot de Passe *<span id="error-password" class="error-msg"></span></label>

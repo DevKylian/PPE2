@@ -11,6 +11,14 @@
 
 ![MAQUETTE](git/readme/responsive.png)
 
+### 📌 Procédure d'Installation
+- Créer un base de données nommée 'ppe2_database' (MySQL)
+- Importer le fichier .sql qui se trouve dans 'backend/includes/db.sql'
+- Configurer le fichier 'backend/includes/db_inc.php' et y entrer les paramètres d'accès à la base de données
+> Généralement : Hôte : localhost, Username : root, Password : (Vide), Nom de la base : ppe2_database
+- Accéder au Site en tapant 'localhost' sur votre navigateur web
+
+
 ### 📌 Tâches Restantes
 - Optimisation du Code (Classe Utilisateur)
 - Intégration du Back-end sur l'Accès Client (Dashboard.php)
@@ -19,7 +27,7 @@
 ### 📌 Contact
 > Contacter moi via les supports suivant
 
-- Site Web : <a href="https://cv.kyliandev.fr" target="_blank">`cv.kyliandev.fr`</a>
+- Site Web : <a href="https://www.kyliandev.fr" target="_blank">`kyliandev.fr`</a>
 - Linkedin : <a href="https://www.linkedin.com/in/kyliandev/" target="_blank">`@kyliandev`</a>
 
 ### 🔒 License
